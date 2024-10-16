@@ -63,22 +63,43 @@ open up you local host and port
 ### dagshub
 [dagshub](https://dagshub.com/)
 
-MLFLOW_TRACKING_URI=https://dagshub.com/someshnaman/End_to_end_MLOPS_project.mlflow \
-MLFLOW_TRACKING_USERNAME=someshnaman \
-MLFLOW_TRACKING_PASSWORD=6e7e6b4e21fb207c4cbf0d4d7f20506e23e748cc \
-python script.py
-
-Run this to export as env variables:
-
-```bash
-
-export MLFLOW_TRACKING_URI=https://dagshub.com/someshnaman/End_to_end_MLOPS_project.mlflow
-
-export MLFLOW_TRACKING_USERNAME=someshnaman 
-
-export MLFLOW_TRACKING_PASSWORD=6e7e6b4e21fb207c4cbf0d4d7f20506e23e748cc
-
+For setting up MLFLOW_TRACKING_URI, MLFLOW_TRACKING_USERNAME and MLFLOW_TRACKING_USERNAME, it is recommended to put them into an untracked `.env` file, install `python-dotenv` and then use the following code where needed:
 ```
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from the .env file
+load_dotenv()
+
+mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI"))
+os.environ.get("MLFLOW_TRACKING_USERNAME")
+os.environ.get("MLFLOW_TRACKING_PASSWORD")
+``` 
+
+If you are using CI/CD pipelines, such as GitHub Actions or GitLab CI, you can store the MLFLOW_TRACKING_PASSWORD and MLFLOW_TRACKING_USERNAME as secrets and access them in your CI/CD pipeline. For example, in GitHub Actions:
+```
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Set up Poetry
+        uses: snok/install-poetry@v1
+        with:
+          poetry-version: latest
+      - name: Install dependencies
+        run: poetry install
+      - name: Run MLflow script
+        env:
+          MLFLOW_TRACKING_PASSWORD: ${{ secrets.MLFLOW_TRACKING_PASSWORD }}
+          MLFLOW_TRACKING_USERNAME: ${{ secrets.MLFLOW_TRACKING_USERNAME }}
+          MLFLOW_TRACKING_URI: ${{ secrets.MLFLOW_TRACKING_URI }}
+        run: poetry run python your_script.py
+```
+
+
+
 # AWS-CICD-Deployment-with-Github-Actions
 
 ## 1. Login to AWS console.

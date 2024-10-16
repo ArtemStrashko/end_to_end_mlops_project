@@ -97,7 +97,7 @@ class ConfigurationManager:
             all_params=params,
             metric_file_name=config.metric_file_name,
             target_column=schema.name,
-            mlflow_uri="https://dagshub.com/live4rush/End_to_end_MLOPS_project.mlflow",
+            mlflow_uri="https://dagshub.com/ArtemStrashko/end_to_end_mlops_project.mlflow",
         )
 
         return model_evaluation_config
