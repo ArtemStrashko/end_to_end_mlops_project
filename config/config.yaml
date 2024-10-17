@@ -2,7 +2,7 @@ artifacts_root: artifacts
 
 data_ingestion:
   root_dir: artifacts/data_ingestion
-  source_URL: https://github.com/someshnaman/End_to_end_MLOPS_project_/raw/master/wine-data.zip
+  source_URL: https://github.com/ArtemStrashko/end_to_end_mlops_project_/raw/master/wine-data.zip
   # source_URL: https://drive.google.com/file/d/1OiiSV5u2elyYhovgH6_mCqReJsjZ8fJr/view?usp=sharing
   local_data_file: artifacts/data_ingestion/data.zip
   unzip_dir: artifacts/data_ingestion

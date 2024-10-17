@@ -21,7 +21,7 @@
 Clone the repository
 
 ```bash
-https://github.com/someshnaman/End_to_end_MLOPS_project
+https://github.com/ArtemStrashko/End_to_end_MLOPS_project
 ```
 ### STEP 01- Create a conda environment after opening the repository
 
