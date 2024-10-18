@@ -3,7 +3,7 @@ name: workflow
 on:
   push:
     branches:
-      - master
+      - main
     paths-ignore:
       - 'README.md'
 
@@ -154,7 +154,7 @@ jobs:
          -e 'MLFLOW_TRACKING_USERNAME=${{ secrets.MLFLOW_TRACKING_USERNAME }}' \
          -e 'MLFLOW_TRACKING_PASSWORD=${{ secrets.MLFLOW_TRACKING_PASSWORD }}' \
          $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-         
+
       - name: Clean previous images and containers
         run: |
          docker system prune -f
