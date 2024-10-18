@@ -152,7 +152,7 @@ jobs:
             -e MLFLOW_TRACKING_PASSWORD=${{ secrets.MLFLOW_TRACKING_PASSWORD }} \
             $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
       - name: Run Integration Tests
-        run: curl --http://host.docker.internal:8080/health || exit 1
+        run: curl --fail http://host.docker.internal:8080/health || exit 1
 
       - name: Stop and Remove Integration Test Container
         run: docker stop mlproj-integration-tests && docker rm mlproj-integration-tests
