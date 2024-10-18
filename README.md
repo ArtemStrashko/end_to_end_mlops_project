@@ -133,7 +133,7 @@ jobs:
 
 	
 ## 3. Create ECR repo to store/save docker image
-    - Save the URI: 696047507996.dkr.ecr.us-east-1.amazonaws.com/mlproj
+    - Save the URI: 408292891334.dkr.ecr.us-east-1.amazonaws.com/mlproj
 
 	
 ## 4. Create EC2 machine (Ubuntu) 
