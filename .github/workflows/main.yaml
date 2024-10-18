@@ -145,7 +145,13 @@ jobs:
 
       - name: Stop and remove container if running
         run: |
-          docker ps -q --filter "name=mlproj" | grep -q . && docker stop mlproj && docker rm -fv mlproj || echo "No container found to stop"
+          CONTAINER_ID=$(docker ps -q --filter "name=mlproj")
+          if [ ! -z "$CONTAINER_ID" ]; then
+            docker stop $CONTAINER_ID
+            docker rm -fv $CONTAINER_ID
+          else
+            echo "No container found to stop"
+          fi
 
       - name: Run Docker Image to serve users
         env:
