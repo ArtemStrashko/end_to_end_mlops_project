@@ -1,7 +1,7 @@
 import os
 
 import numpy as np
-from flask import Flask, render_template, request
+from flask import Flask, jsonify, render_template, request
 
 from mlProject.pipeline.prediction import PredictionPipeline
 
@@ -64,6 +64,13 @@ def index():
 
     else:
         return render_template("index.html")
+
+
+# Health check endpoint
+@app.route("/health", methods=["GET"])
+def health_check():
+    """Health check route that returns a simple status message"""
+    return jsonify(status="healthy"), 200
 
 
 if __name__ == "__main__":

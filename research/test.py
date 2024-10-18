@@ -2,11 +2,9 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import pandas as pd
-from mlProject.constants import (
-    CONFIG_FILE_PATH,
-    PARAMS_FILE_PATH,
-    SCHEMA_FILE_PATH,
-)
+
+from mlProject.constants import (CONFIG_FILE_PATH, PARAMS_FILE_PATH,
+                                 SCHEMA_FILE_PATH)
 from mlProject.utils.common import create_directories, read_yaml
 
 
