@@ -143,8 +143,9 @@ jobs:
       - name: Run Integration Tests
         run: curl --fail http://localhost:8080/health || exit 1
 
-      - name: Stop and Remove Integration Test Container
-        run: docker stop mlproj-integration-tests && docker rm mlproj-integration-tests
+      - name: Stop and remove container if running
+        run: |
+          docker ps -q --filter "name=mlproj" | grep -q . && docker stop mlproj && docker rm -fv mlproj || echo "No container found to stop"
 
       - name: Run Docker Image to serve users
         env:
