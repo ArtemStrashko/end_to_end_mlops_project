@@ -119,11 +119,14 @@ jobs:
           IMAGE_TAG: latest
         run: |
          docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+      - name: List running containers
+        run: docker ps
          
       - name: Stop and remove container if running
         run: |
-         docker ps -q --filter "name=mlproj" | grep -q . && docker stop mlproj && docker rm -fv mlproj
-       
+          docker ps -q --filter "name=mlproj" | grep -q . && docker stop mlproj && docker rm -fv mlproj || echo "No container to stop"
+
       - name: Run Docker Image for Integration Tests
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
