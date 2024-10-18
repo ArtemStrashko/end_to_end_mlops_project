@@ -81,7 +81,7 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           # Build the Docker image and tag it with the commit SHA
-          docker build --cache-from=type=local,src=/tmp/.buildx-cache --cache-to=type=local,dest=/tmp/.buildx-cache -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker build --cache-from=type=local,src=/tmp/.buildx-cache -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           
           # Tag the image as "latest" for easy pulling during deployment
           docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
@@ -92,7 +92,6 @@ jobs:
           
           # Output the image with the commit SHA tag
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-          
           
   Continuous-Deployment:
     needs: build-and-push-ecr-image
