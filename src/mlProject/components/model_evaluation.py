@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -8,9 +7,10 @@ import mlflow.sklearn
 import numpy as np
 import pandas as pd
 from mlflow.models.signature import infer_signature
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+
 from mlProject.entity.config_entity import ModelEvaluationConfig
 from mlProject.utils.common import save_json
-from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 
 class ModelEvaluation:
@@ -51,7 +51,9 @@ class ModelEvaluation:
             mlflow.log_metric("mae", mae)
 
             input_example = test_x[:2]
-            signature = infer_signature(input_example, model.predict(input_example))
+            signature = infer_signature(
+                input_example, model.predict(input_example)
+            )
 
             # Model registry does not work with file store,
             # it requires a tracking server with a backend store
@@ -59,7 +61,9 @@ class ModelEvaluation:
             # their metadata, and transitions.
 
             registered_model_name = (
-                "ElasticnetModel" if tracking_url_type_store != "file" else None
+                "ElasticnetModel"
+                if tracking_url_type_store != "file"
+                else None
             )
 
             # Register the model

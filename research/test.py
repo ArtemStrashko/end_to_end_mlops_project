@@ -1,9 +1,13 @@
-import os
 from dataclasses import dataclass
 from pathlib import Path
 
 import pandas as pd
-from mlProject import logger
+from mlProject.constants import (
+    CONFIG_FILE_PATH,
+    PARAMS_FILE_PATH,
+    SCHEMA_FILE_PATH,
+)
+from mlProject.utils.common import create_directories, read_yaml
 
 
 @dataclass(frozen=True)
@@ -12,10 +16,6 @@ class DataValidationConfig:
     STATUS_FILE: str
     unzip_data_dir: Path
     all_schema: dict
-
-
-from mlProject.constants import *
-from mlProject.utils.common import create_directories, read_yaml
 
 
 class ConfigurationManager:

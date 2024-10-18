@@ -26,6 +26,10 @@ python-dotenv = "^1.0.1"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^4.0.1"
+flake8 = "^7.1.1"
+black = "^24.10.0"
+isort = "^5.13.2"
+autoflake = "^2.3.1"
 
 [build-system]
 requires = ["poetry-core"]

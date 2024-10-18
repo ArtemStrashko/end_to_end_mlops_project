@@ -18,7 +18,9 @@ class DataTransformationTrainingPipeline:
 
             if status == "True":
                 config = ConfigurationManager()
-                data_transformation_config = config.get_data_transformation_config()
+                data_transformation_config = (
+                    config.get_data_transformation_config()
+                )
                 data_transformation = DataTransformation(
                     config=data_transformation_config
                 )
@@ -36,7 +38,9 @@ if __name__ == "__main__":
         logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
         obj = DataTransformationTrainingPipeline()
         obj.main()
-        logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
+        logger.info(
+            f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x"
+        )
     except Exception as e:
         logger.exception(e)
         raise e

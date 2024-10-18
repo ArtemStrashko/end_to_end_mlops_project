@@ -27,7 +27,7 @@ def read_yaml(path_to_yaml: Path) -> ConfigBox:
     try:
         with open(path_to_yaml) as yaml_file:
             content = yaml.safe_load(yaml_file)
-            logger.info(f"yaml file: {path_to_yaml} loaded successfully")
+            logger.info("yaml file: %s loaded successfully", path_to_yaml)
             return ConfigBox(content)
     except BoxError:
         raise ValueError("yaml file is empty")
@@ -41,12 +41,13 @@ def create_directories(path_to_directories: list, verbose=True):
 
     Args:
         path_to_directories (list): list of path of directories
-        ignore_log (bool, optional): ignore if multiple dirs is to be created. Defaults to False.
+        ignore_log (bool, optional): ignore if multiple dirs is
+        to be created. Defaults to False.
     """
     for path in path_to_directories:
         os.makedirs(path, exist_ok=True)
         if verbose:
-            logger.info(f"created directory at: {path}")
+            logger.info("created directory at: %s", path)
 
 
 @ensure_annotations
@@ -60,7 +61,7 @@ def save_json(path: Path, data: dict):
     with open(path, "w") as f:
         json.dump(data, f, indent=4)
 
-    logger.info(f"json file saved at: {path}")
+    logger.info("json file saved at: %s", path)
 
 
 @ensure_annotations
@@ -76,7 +77,7 @@ def load_json(path: Path) -> ConfigBox:
     with open(path) as f:
         content = json.load(f)
 
-    logger.info(f"json file loaded succesfully from: {path}")
+    logger.info("json file loaded successfully from: %s", path)
     return ConfigBox(content)
 
 
@@ -89,7 +90,7 @@ def save_bin(data: Any, path: Path):
         path (Path): path to binary file
     """
     joblib.dump(value=data, filename=path)
-    logger.info(f"binary file saved at: {path}")
+    logger.info("binary file saved at: %s", path)
 
 
 @ensure_annotations
@@ -103,7 +104,7 @@ def load_bin(path: Path) -> Any:
         Any: object stored in the file
     """
     data = joblib.load(path)
-    logger.info(f"binary file loaded from: {path}")
+    logger.info("binary file loaded from: %s", path)
     return data
 
 

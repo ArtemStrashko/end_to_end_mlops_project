@@ -30,21 +30,24 @@ list_of_files = [
 ]
 
 # creating files and folders
-# first of all we'll itreate tgrough each and every object in list_of_files and create files and folders if Not exist
+# first of all we'll itreate tgrough each and every object in
+# list_of_files and create files and folders if Not exist
 for file_path in list_of_files:
     filepath = Path(file_path)
     file_dir, filename = os.path.split(filepath)
 
-    # Now that we've seperated the file directory and filename, we'll create  those file and folders
+    # Now that we've seperated the file directory and filename,
+    # we'll create  those file and folders
 
     if file_dir != "":
         os.makedirs(file_dir, exist_ok=True)
-        logging.info(f"Creating directory: {file_dir} for the file: {filename}")
+        logging.info(
+            f"Creating directory: {file_dir} for the file: {filename}"
+        )
 
     # Creating the files if not exist
     if (not os.path.exists(filepath)) or os.path.getsize(filepath == 0):
         with open(filepath, "w") as f:
-            pass
             logging.info(f"Creating empty directory: {filepath}")
     else:
         logging.info(f"{filename} already exist")
