@@ -139,6 +139,10 @@ jobs:
           MLFLOW_TRACKING_USERNAME: ${{ secrets.MLFLOW_TRACKING_USERNAME }}
           MLFLOW_TRACKING_PASSWORD: ${{ secrets.MLFLOW_TRACKING_PASSWORD }}
         run: |
+          # Stop and remove the container if it's already running
+          docker ps -q --filter "name=mlproj-integration-tests" | grep -q . && docker stop mlproj-integration-tests && docker rm mlproj-integration-tests || echo "No existing container to stop"
+          
+          # Run the new integration test container
           docker run -d -p 8080:8080 --name=mlproj-integration-tests \
             -e AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} \
             -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \

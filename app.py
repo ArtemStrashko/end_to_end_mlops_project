@@ -2,7 +2,6 @@ import os
 
 import numpy as np
 from flask import Flask, jsonify, render_template, request
-
 from mlProject.pipeline.prediction import PredictionPipeline
 
 app = Flask(__name__)  # initializing a flask app
