@@ -5,7 +5,9 @@ FROM python:3.11-slim-buster
 ENV PYTHONUNBUFFERED=1 \
     POETRY_VERSION=1.5.1 \
     POETRY_VIRTUALENVS_CREATE=false \
-    POETRY_NO_INTERACTION=1
+    POETRY_NO_INTERACTION=1 \ 
+    PYTHONPATH=/app/src 
+    # Set PYTHONPATH to include the src directory
 
 # Install Poetry and other dependencies
 RUN apt-get update && apt-get install -y curl git && \
