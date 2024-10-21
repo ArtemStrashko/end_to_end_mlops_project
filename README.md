@@ -1,5 +1,5 @@
 # End-to-end-Machine-Learning-Project-with-MLflow
-This is a basic learning end-to-end MLOPs project involving tools like MLflow, Docker, AWS, Flask, and CI/CD with GitHub actions.
+This is a learning end-to-end MLOPs project involving tools like MLflow, Docker, ECR, EC2, Flask, and CI/CD with GitHub actions.
 
 
 <!-- 
@@ -141,11 +141,11 @@ After that, hit `shift  command  p` and choose `Remote-SSH: Conect to Host`.
 
 In your repository on GitHub, go to Settings, Secrets and variables, Actions and set up the following secrets:
 ```
-    AWS_ACCESS_KEY_ID=
-    AWS_SECRET_ACCESS_KEY=
-    AWS_REGION = 
-    AWS_ECR_LOGIN_URI = 
-    ECR_REPOSITORY_NAME = 
+	AWS_ACCESS_KEY_ID=
+	AWS_SECRET_ACCESS_KEY=
+	AWS_REGION = 
+	AWS_ECR_LOGIN_URI = 
+	ECR_REPOSITORY_NAME = 
 	MLFLOW_TRACKING_URI = 
 	MLFLOW_TRACKING_USERNAME = 
 	MLFLOW_TRACKING_PASSWORD = 
@@ -158,6 +158,8 @@ Pushing code to GitHub will activate CI/CD workflow.
 
 # Using deployed app.
 
-Once the project has been deployed with GitHub CI/CD, go the AWS EC2 manager, select your EC2 instance, select Security Groups, then click Edit inbound rules, click on add rule. Keep it Custup TCP add port `8080` and select `ip 0.0.0.0/0` and click on save rules. Now you can copy EC2 instance public ip and past it in your browser. The app is ready to be used.
+Once the project has been deployed with GitHub CI/CD, go the AWS EC2 manager, select your EC2 instance, select Security Groups, then click Edit inbound rules, click on add rule. Keep it Custup TCP add port `8080` and select `ip 0.0.0.0/0` and click on save rules. Now you can copy EC2 instance public ip and past it in your browser and add the port `8080`, so you should past in your browser `<publick_ip_address>:8080`. The app is ready to be used.
 
-## More detailed info about the contents of this repo.
+### Misk.
+
+File `template.py` was used to generate the project structure. For building coding project templates you can try [cookiecutter](https://www.cookiecutter.io/). 
