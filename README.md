@@ -99,7 +99,7 @@ Attach the following policies directly: `AmazonEC2ContainerRegistryFullAccess` a
 
 ## 3. ECR (Elastic Container Registry) setup.
 
-Create a private repository and copy its name, which will be your `ECR_REPOSITORY_NAME`. In my case it is `408292891334.dkr.ecr.us-east-1.amazonaws.com/mlproj`.
+Create a private repository and copy its name, which will be your `ECR_REPOSITORY_NAME`. In my case it is `408292891334.dkr.ecr.us-east-1.amazonaws.com/mlproj`. This container will be used for storing Docker images.
 
 ## 4. Create EC2 instance.
 
