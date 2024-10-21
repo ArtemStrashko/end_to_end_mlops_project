@@ -1,5 +1,6 @@
 # End-to-end-Machine-Learning-Project-with-MLflow
-This is a learning end-to-end MLOPs project involving tools like MLflow, Docker, ECR, EC2, Flask, and CI/CD with GitHub actions.
+This is a minimal end-to-end MLOps project that integrates tools like MLflow, Docker, ECR, EC2, Flask, and CI/CD using GitHub Actions.
+
 
 
 <!-- 
