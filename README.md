@@ -162,4 +162,4 @@ Once the project has been deployed with GitHub CI/CD, go the AWS EC2 manager, se
 
 ### Misk.
 
-File `template.py` was used to generate the project structure. For building coding project templates you can try [cookiecutter](https://www.cookiecutter.io/). 
+File `template.py` was used to generate the project structure. For building coding project templates you can try [cookiecutter](https://www.cookiecutter.io/). File `.pre-commit-config.yaml` allows to cleanup jupyter notebook when committing changes (pre-commit hook). 
