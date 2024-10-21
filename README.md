@@ -16,7 +16,7 @@ This is a basic learning end-to-end MLOPs project involving tools like MLflow, D
 9. Update the app.py
  -->
 
- ## Prerequisites
+## Prerequisites
 
 Make sure you have the following installed:
 
@@ -139,6 +139,8 @@ After that, hit `shift  command  p` and choose `Remote-SSH: Conect to Host`.
 
 ## 8. Setup github secrets:
 
+In your repository on GitHub, go to Settings, Secrets and variables, Actions and set up the following secrets:
+```
     AWS_ACCESS_KEY_ID=
     AWS_SECRET_ACCESS_KEY=
     AWS_REGION = 
@@ -147,6 +149,7 @@ After that, hit `shift  command  p` and choose `Remote-SSH: Conect to Host`.
 	MLFLOW_TRACKING_URI = 
 	MLFLOW_TRACKING_USERNAME = 
 	MLFLOW_TRACKING_PASSWORD = 
+```
 
 ## 9. Push the code to GitHub.
 
