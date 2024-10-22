@@ -82,7 +82,7 @@ os.environ.get("MLFLOW_TRACKING_PASSWORD")
 If you are using CI/CD pipelines, such as GitHub Actions or GitLab CI, you can store the MLFLOW_TRACKING_PASSWORD and MLFLOW_TRACKING_USERNAME as secrets and access them in your CI/CD pipeline. See `.github/workflows/main.yaml` for details.
 
 
-# AWS CICD Deployment with GitHub Actions
+# AWS CI/CD Deployment with GitHub Actions
 
 ## 1. Login to AWS console.
 
