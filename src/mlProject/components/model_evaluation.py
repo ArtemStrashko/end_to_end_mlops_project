@@ -7,20 +7,29 @@ import mlflow.sklearn
 import numpy as np
 import pandas as pd
 from mlflow.models.signature import infer_signature
+from sklearn.metrics import classification_report
+
 from mlProject.entity.config_entity import ModelEvaluationConfig
 from mlProject.utils.common import save_json
-from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 
 class ModelEvaluation:
     def __init__(self, config: ModelEvaluationConfig):
         self.config = config
 
-    def eval_metrics(self, actual, pred):
-        rmse = np.sqrt(mean_squared_error(actual, pred))
-        mae = mean_absolute_error(actual, pred)
-        r2 = r2_score(actual, pred)
-        return rmse, mae, r2
+    def eval_metrics(self, y_true, y_pred):
+        # Initialize result dictionary
+        results = {}
+
+        # Precision, recall, and F1-score
+        class_report = classification_report(
+            y_true, y_pred, output_dict=True, zero_division=0
+        )
+        results["precision"] = class_report["macro avg"]["precision"]
+        results["recall"] = class_report["macro avg"]["recall"]
+        results["f1_score"] = class_report["macro avg"]["f1-score"]
+
+        return results
 
     def log_into_mlflow(self):
 
@@ -28,29 +37,29 @@ class ModelEvaluation:
         model = joblib.load(self.config.model_path)
 
         test_x = test_data.drop([self.config.target_column], axis=1)
-        test_y = test_data[[self.config.target_column]]
+        test_labels = test_data[[self.config.target_column]]
 
         mlflow.set_registry_uri(self.config.mlflow_uri)
         tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
 
         with mlflow.start_run():
 
-            predicted_qualities = model.predict(test_x)
-
-            (rmse, mae, r2) = self.eval_metrics(test_y, predicted_qualities)
+            predicted_labels = model.predict(test_x)
+            scores = self.eval_metrics(test_labels, predicted_labels)
 
             # Saving metrics as local
-            scores = {"rmse": rmse, "mae": mae, "r2": r2}
             save_json(path=Path(self.config.metric_file_name), data=scores)
 
             mlflow.log_params(self.config.all_params)
 
-            mlflow.log_metric("rmse", rmse)
-            mlflow.log_metric("r2", r2)
-            mlflow.log_metric("mae", mae)
+            mlflow.log_metric("precision", scores["precision"])
+            mlflow.log_metric("recall", scores["recall"])
+            mlflow.log_metric("f1_score", scores["f1_score"])
 
             input_example = test_x[:2]
-            signature = infer_signature(input_example, model.predict(input_example))
+            signature = infer_signature(
+                input_example, model.predict(input_example)
+            )
 
             # Model registry does not work with file store,
             # it requires a tracking server with a backend store
@@ -58,7 +67,9 @@ class ModelEvaluation:
             # their metadata, and transitions.
 
             registered_model_name = (
-                "ElasticnetModel" if tracking_url_type_store != "file" else None
+                "RandomForestModel"
+                if tracking_url_type_store != "file"
+                else None
             )
 
             # Register the model

@@ -40,7 +40,9 @@ for file_path in list_of_files:
 
     if file_dir != "":
         os.makedirs(file_dir, exist_ok=True)
-        logging.info(f"Creating directory: {file_dir} for the file: {filename}")
+        logging.info(
+            f"Creating directory: {file_dir} for the file: {filename}"
+        )
 
     # Creating the files if not exist
     if (not os.path.exists(filepath)) or os.path.getsize(filepath == 0):

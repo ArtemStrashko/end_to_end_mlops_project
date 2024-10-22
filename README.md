@@ -1,7 +1,5 @@
-# End-to-end Machine Learning Project.
-This is a minimal end-to-end MLOps project that integrates tools like MLflow, Docker, ECR, EC2, Flask, and CI/CD using GitHub Actions.
-
-
+# End-to-end-Machine-Learning-Project-with-MLflow
+This is a minimal end-to-end MLOps project that integrates tools like MLflow, Docker, ECR, EC2, FastAPI, and CI/CD using GitHub Actions.
 
 <!-- 
 ## Workflows
@@ -117,15 +115,10 @@ After that, hit `shift  command  p` and choose `Remote-SSH: Conect to Host`.
 	
 ```
 	sudo apt-get update -y
-
 	sudo apt-get upgrade
-	
 	curl -fsSL https://get.docker.com -o get-docker.sh
-
 	sudo sh get-docker.sh
-
 	sudo usermod -aG docker ubuntu
-
 	newgrp docker
 ```
 	
@@ -159,3 +152,9 @@ Once the project has been deployed with GitHub CI/CD, go the AWS EC2 manager, se
 ### Misk.
 
 File `template.py` was used to generate the project structure. For building coding project templates you can try [cookiecutter](https://www.cookiecutter.io/). File `.pre-commit-config.yaml` allows to cleanup jupyter notebook when committing changes (pre-commit hook). 
+<<<<<<< HEAD
+=======
+
+### License. 
+This project is licensed under the MIT License - see the LICENSE file for details. This learning project is substantially based the [original version](https://github.com/someshnaman/End_to_end_MLOPS_project/tree/master), but significantly modified including github actions, paths, fixed deployment bugs, using poetry for managing dependencies, adding pre-commit hooks, expanding readme, and managing MLflow secrets both locally and on github, replaced Flask by FastAPI.
+>>>>>>> 588ca65 (Multiple changes)

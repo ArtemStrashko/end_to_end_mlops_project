@@ -1,77 +1,90 @@
 import os
 
 import numpy as np
-from flask import Flask, jsonify, render_template, request
+from fastapi import FastAPI, Form, Request
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+
 from mlProject.pipeline.prediction import PredictionPipeline
 
-app = Flask(__name__)  # initializing a flask app
+app = FastAPI()  # initializing a FastAPI app
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
-@app.route("/", methods=["GET"])  # route to display the home page
-def homePage():
-    return render_template("index.html")
+templates = Jinja2Templates(directory="templates")
 
 
-@app.route("/train", methods=["GET"])  # route to train the pipeline
-def training():
+# Route to display the home page
+@app.get("/", response_class=HTMLResponse)
+async def home_page(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
+
+# Route to train the pipeline
+@app.get("/train")
+async def training():
     os.system("python main.py")
-    return "Training Successful!"
+    return {"message": "Training Successful!"}
 
 
-@app.route(
-    "/predict", methods=["POST", "GET"]
-)  # route to show the predictions in a web UI
-def index():
-    if request.method == "POST":
-        try:
-            #  reading the inputs given by the user
-            fixed_acidity = float(request.form["fixed_acidity"])
-            volatile_acidity = float(request.form["volatile_acidity"])
-            citric_acid = float(request.form["citric_acid"])
-            residual_sugar = float(request.form["residual_sugar"])
-            chlorides = float(request.form["chlorides"])
-            free_sulfur_dioxide = float(request.form["free_sulfur_dioxide"])
-            total_sulfur_dioxide = float(request.form["total_sulfur_dioxide"])
-            density = float(request.form["density"])
-            pH = float(request.form["pH"])
-            sulphates = float(request.form["sulphates"])
-            alcohol = float(request.form["alcohol"])
+# Route to handle predictions in a web UI
+@app.post("/predict", response_class=HTMLResponse)
+async def predict(
+    request: Request,
+    fixed_acidity: float = Form(...),
+    volatile_acidity: float = Form(...),
+    citric_acid: float = Form(...),
+    residual_sugar: float = Form(...),
+    chlorides: float = Form(...),
+    free_sulfur_dioxide: float = Form(...),
+    total_sulfur_dioxide: float = Form(...),
+    density: float = Form(...),
+    pH: float = Form(...),
+    sulphates: float = Form(...),
+    alcohol: float = Form(...),
+):
+    try:
+        # Prepare the input data as a numpy array
+        data = [
+            fixed_acidity,
+            volatile_acidity,
+            citric_acid,
+            residual_sugar,
+            chlorides,
+            free_sulfur_dioxide,
+            total_sulfur_dioxide,
+            density,
+            pH,
+            sulphates,
+            alcohol,
+        ]
+        data = np.array(data).reshape(1, 11)
 
-            data = [
-                fixed_acidity,
-                volatile_acidity,
-                citric_acid,
-                residual_sugar,
-                chlorides,
-                free_sulfur_dioxide,
-                total_sulfur_dioxide,
-                density,
-                pH,
-                sulphates,
-                alcohol,
-            ]
-            data = np.array(data).reshape(1, 11)
+        # Instantiate prediction pipeline and make predictions
+        obj = PredictionPipeline()
+        predict = obj.predict(data)
 
-            obj = PredictionPipeline()
-            predict = obj.predict(data)
+        return templates.TemplateResponse(
+            "results.html", {"request": request, "prediction": str(predict)}
+        )
 
-            return render_template("results.html", prediction=str(predict))
-
-        except Exception as e:
-            print("The Exception message is: ", e)
-            return "something is wrong"
-
-    else:
-        return render_template("index.html")
+    except Exception as e:
+        print(f"The Exception message is: {e}")
+        return templates.TemplateResponse(
+            "error.html",
+            {"request": request, "message": "Something went wrong"},
+        )
 
 
 # Health check endpoint
-@app.route("/health", methods=["GET"])
-def health_check():
+@app.get("/health")
+async def health_check():
     """Health check route that returns a simple status message"""
-    return jsonify(status="healthy"), 200
+    return {"status": "healthy"}
 
 
 if __name__ == "__main__":
-    # app.run(host="0.0.0.0", port = 8080, debug=True)
-    app.run(host="0.0.0.0", port=8080)
+    import uvicorn
+
+    uvicorn.run(app, host="0.0.0.0", port=8080)

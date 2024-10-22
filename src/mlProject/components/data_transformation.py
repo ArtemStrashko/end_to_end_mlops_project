@@ -20,8 +20,11 @@ class DataTransformation:
     def train_test_spliting(self):
         data = pd.read_csv(self.config.data_path)
 
+        # Shuffle the data
+        data = data.sample(frac=1, random_state=42).reset_index(drop=True)
+
         # Split the data into training and test sets. (0.75, 0.25) split.
-        train, test = train_test_split(data)
+        train, test = train_test_split(data, train_size=0.75, random_state=42)
 
         train.to_csv(
             os.path.join(self.config.root_dir, "train.csv"), index=False

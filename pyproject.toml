@@ -19,9 +19,11 @@ tqdm = "^4.66.5"
 ensure = "^1.0.4"
 joblib = "^1.4.2"
 types-pyyaml = "^6.0.12.20240917"
-flask = "^3.0.3"
 flask-cors = "^5.0.0"
 python-dotenv = "^1.0.1"
+fastapi = "^0.115.2"
+uvicorn = "^0.32.0"
+python-multipart = "^0.0.12"
 
 
 [tool.poetry.group.dev.dependencies]
