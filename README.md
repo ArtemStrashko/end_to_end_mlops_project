@@ -67,11 +67,6 @@ poetry run python app.py
 
 ## MLflow
 
-[Documentation](https://mlflow.org/docs/latest/index.html)
-
-### dagshub
-[dagshub](https://dagshub.com/)
-
 For setting up MLFLOW_TRACKING_URI, MLFLOW_TRACKING_USERNAME and MLFLOW_TRACKING_USERNAME, it is recommended to put them into an untracked `.env` file, install `python-dotenv` and then use the following code wherever needed:
 ```
 from dotenv import load_dotenv
